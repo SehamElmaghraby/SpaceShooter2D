@@ -17,7 +17,9 @@ public class MissileController : MonoBehaviour
             GameObject gm = Instantiate(GameManager.instance.explosion, transform.position, transform.rotation);
             Destroy(gm, 2f);
 
-          
+           // Add gold when missile destroys enemy
+         PlayerStats.instance.AddGold(90); // Add 20 gold
+
             Destroy(this.gameObject);
             Destroy(collision.gameObject);
         }

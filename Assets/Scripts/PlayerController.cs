@@ -22,6 +22,10 @@ public class PlayerController : MonoBehaviour
         float yPos = Input.GetAxis("Vertical");
         Vector3 movement = new Vector3(xPos, yPos, 0) * speed * Time.deltaTime;
         transform.Translate(movement);
+        Vector3 clampedPos = transform.position;
+        clampedPos.x = Mathf.Clamp(clampedPos.x, -8f, 8f); 
+        clampedPos.y = Mathf.Clamp(clampedPos.y, -4.5f, 4.5f); 
+        transform.position = clampedPos;
     }
 
     void PlayerShoot()
@@ -55,15 +59,20 @@ public class PlayerController : MonoBehaviour
             transform.position,
             transform.rotation
         );
-        Destroy(gm, 2f);
+        Destroy(gm, 1f);
 
         Destroy(collision.gameObject);
 
         
         GameManager.instance.playerDestroyed = true;
+          // Disable player visuals immediately
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<Collider2D>().enabled = false;
 
+        // Start Game Over after explosion duration
+        StartCoroutine(ShowGameOverAfterDelay(0.5f));
       
-        Destroy(this.gameObject);
+        // Destroy(this.gameObject);
     }
 }
 

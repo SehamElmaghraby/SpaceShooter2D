@@ -51,11 +51,6 @@ void Update()
         PauseGame(!pauseMenu.activeSelf);
     }
 
-    if (Input.GetKeyDown(KeyCode.G) && playerDestroyed && !gameOverShown)
-    {
-        GameOver();
-        gameOverShown = true;
-    }
 }
 
 

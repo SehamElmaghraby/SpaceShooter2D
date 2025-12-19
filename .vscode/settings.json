@@ -67,5 +67,5 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "SpaceShooter2D.slnx"
+    "dotnet.defaultSolution": "2D SpaceShooter.slnx"
 }
