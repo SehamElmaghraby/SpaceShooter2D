@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public GameObject missile;
     public Transform missileSpawnPosition;
     public float destroyTime = 5f;
+    public Transform muzzlespawnposition ;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -32,10 +33,33 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-           GameObject gm = Instantiate(missile,missileSpawnPosition);
-           gm.transform.SetParent(null);
-           Destroy(gm,destroyTime);
+         SpawnMissile();
+         SpawnMuzzleFlash ();
         }
         
+    }
+    void SpawnMissile()
+    {
+        GameObject gm = Instantiate(missile,missileSpawnPosition);
+           gm.transform.SetParent(null);
+           Destroy(gm,destroyTime); 
+    }
+    void SpawnMuzzleFlash ()
+    {
+        GameObject muzzle = Instantiate (GameManager.instance.muzzleflash,muzzlespawnposition);
+         muzzle.transform.SetParent(null);
+           Destroy(muzzle,destroyTime); 
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Enemy")
+        {
+             GameObject gm =Instantiate( GameManager.instance.explosion,transform.position,transform.rotation);
+            Destroy(gm,2f);
+            Destroy(this.gameObject);
+            Debug.Log("Game Over");
+            //Game Over Screen Will Appear Here
+            
+        }
     }
 }
